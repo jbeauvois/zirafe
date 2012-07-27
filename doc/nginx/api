@@ -1,0 +1,30 @@
+server {
+    listen 80;
+    server_name api.zirafe;
+    root /var/www/zirafe;
+
+    access_log /var/log/nginx/zirafe.access.log;
+    error_log /var/log/nginx/zirafe.error.log;
+
+    if ($request_method != POST) {
+	return 405;
+    }
+
+    rewrite "/42$" /api.php;
+
+    location ~ ^/api.php$ {
+       if (-f $request_filename) {
+           fastcgi_pass php;
+       }
+       fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;
+       fastcgi_param PATH_INFO $fastcgi_path_info;
+       fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+       fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+       include fastcgi_params;
+    }
+
+    location / {
+	return 403;
+    }
+}
+

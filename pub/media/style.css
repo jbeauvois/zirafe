@@ -1,0 +1,224 @@
+body {
+  text-align: center;
+  font-family: sans-serif;
+  margin: 4.2ex auto;
+  }
+
+img {
+  border: none;
+}
+
+input {
+  margin: 0;
+}
+
+#links tr.hide {
+  display: none;
+}
+
+#links p.options span {
+  font-size: 11px;
+  cursor: pointer;
+  border-bottom: 1px solid black;
+}
+
+#links {
+  text-align: left;
+}
+
+.message:hover input {
+  background-color: #BFB;
+}
+
+#links div {
+  width: 90%;
+  background-color: red;
+}
+
+span.info {
+  border-bottom: 1px dotted #333;
+  cursor: help;
+}
+
+.message input:hover {
+  border: 1px solid green;  
+  background-color: #FFF;
+}
+
+#links input {
+  width: 80%;
+  margin-top: 10px;
+  padding: 5px;  
+  font-size: 12px;  
+  outline: none;
+  -webkit-border-radius: 3px;  
+  -moz-border-radius: 3px;  
+  border-radius: 3px;  
+  border: 1px solid #717171;  
+}
+
+#links td.label {
+  padding: 15px 5px 0px 0px;
+  text-align:right;
+  width: 30%;
+}
+
+
+h1 a {
+  text-decoration: none;
+}
+
+h1 img {
+  width: 84px;
+  font-size: medium;
+}
+
+h2 {
+  font-size: 1em;
+  margin-bottom: 4.2ex;
+}
+
+#content {
+  width: 42em;
+  margin: 0 auto;
+}
+
+#upload {
+  width: 21em;
+  margin: 4.2ex auto;
+  font-size: 0.7em;
+  padding: 1ex 3ex 3ex 3ex;
+  border: 1px solid #424242;
+  background-color: #EEE;
+}
+
+#upload:hover {
+  background-color: #CCC;
+}
+
+#links table {
+  width: 100%;
+}
+
+#links a, #links a:visited, #links a:link, #links a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+#links a:hover {
+  text-decoration: underline;
+  color: red;
+}
+
+#upload .config {
+  font-size: xx-small;
+  padding: 1em;
+}
+
+#upload .info {
+  text-align: left;
+  font-size: smaller;
+}
+
+#upload .more {
+  cursor: pointer;
+}
+
+#upload .more:after {
+  content: ' ▼';
+}
+
+#upload .activation {
+  text-align: left;
+  font-style: italic;
+}
+
+#upload .label {
+  text-align: left;
+  vertical-align: top;
+  font-size: smaller;
+}
+
+#upload .field {
+  text-align: right;
+  vertical-align: bottom;
+}
+
+#upload p {
+  margin: 0.8ex 0;
+}
+
+#upload span.title {
+  position: relative;
+  bottom: 20px;
+  background-color: #EEE;
+  padding: 1ex;
+  border: 1px solid #424242;
+}
+
+#input_key {
+  width: 84px;
+}
+
+#moreoptions p {
+  text-align: left;
+  display: inline;
+}
+
+#moreoptions {
+  padding 1ex;
+}
+
+#copyright {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.7em;
+  border-top: 1px solid #CCC;
+  background-color: #EEE;
+  color: #848484;
+}
+
+#copyright a:link, #copyright a:visited {
+  color: #848484;
+}
+
+#copyright a:hover {
+  color: red;
+}
+
+.error, .message {
+  width: 84%;
+  margin: 5ex auto;
+  font-size: 0.75em;
+}
+
+.error:hover, .message:hover {
+  background-color: #CCC;
+}
+
+.error {
+  padding-bottom: 1ex;
+  border: red 2px solid;
+  background-color: #FBB;
+}
+
+.error p:before {
+  content: url('media/error.png');
+  padding-right: 1ex;
+}
+
+.message {
+  padding: 1ex;
+  border: green 2px solid;
+  background-color: #BFB;
+}
+
+.message p {
+  text-align: center;
+  padding-right: 1ex;
+}
+
+.message p.ok:before {
+  content: url('media/ok.png');
+}
