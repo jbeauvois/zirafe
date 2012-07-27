@@ -1,6 +1,6 @@
 *tous ces points ne sont que des idées d'évolutions, ils ne constituent aucun engagement et évolueront.*
 
-## v0 - version "fresh fork"
+## v0.5 - version "fresh fork"
 * refactoring (remove jquery, merge nginx configs)
 * installeur
 
