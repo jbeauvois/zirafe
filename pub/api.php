@@ -1,28 +1,28 @@
 <?php
+
 /*
- *  Jyraphe, your web file repository
- *  Copyright (C) 2008  Julien "axolotl" BERNARD <axolotl@magieeternelle.org>
+ *  This file is part of Zirafe.
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License as
- *  published by the Free Software Foundation, either version 3 of the
- *  License, or (at your option) any later version.
+ *  Zirafe is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
+ *  Zirafe is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU Affero General Public License for more details.
  *
  *  You should have received a copy of the GNU Affero General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with Zirafe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('JYRAPHE_ROOT', dirname(__FILE__) . '/');
+define('ZIRAFE_ROOT', dirname(__FILE__) . '/');
 define('DEBUG', false);
 
-require(JYRAPHE_ROOT . 'lib/config.php');
-require(JYRAPHE_ROOT . 'lib/settings.php');
-require(JYRAPHE_ROOT . 'lib/functions.php');
+require(ZIRAFE_ROOT . 'lib/config.php');
+require(ZIRAFE_ROOT . 'lib/settings.php');
+require(ZIRAFE_ROOT . 'lib/functions.php');
 
 /* check if the destination dirs are writable */
 $writable = is_writable(VAR_FILES) && is_writable(VAR_LINKS) && is_writable(VAR_TRASH);
@@ -33,10 +33,10 @@ if($writable) {
   $key = '';
 
   $time = time();
-  $time += JYRAPHE_42MINUTES;
+  $time += ZIRAFE_42MINUTES;
   $fr_time = "42 minutes";
 
-  $res = jyraphe_upload($_FILES['file'], isset($_POST['one_time_download']), $key, $time, $cfg);
+  $res = zirafe_upload($_FILES['file'], isset($_POST['one_time_download']), $key, $time, $cfg);
 }
 /* Checking for errors. */
 if(!is_writable(VAR_FILES)) {
@@ -52,7 +52,7 @@ if(!is_writable(VAR_TRASH)) {
 }
 
 /* Check if the install.php script is still in the directory. */
-if (file_exists(JYRAPHE_ROOT . 'install.php')) {
+if (file_exists(ZIRAFE_ROOT . 'install.php')) {
   add_error (_('Installer script still present'),
                        _('Please make sure to delete the installer script "install.php" before continuing.'));
 }

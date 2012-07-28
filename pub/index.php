@@ -1,44 +1,44 @@
 <?php
+
 /*
- *  Jyraphe, your web file repository
- *  Copyright (C) 2008  Julien "axolotl" BERNARD <axolotl@magieeternelle.org>
+ *  This file is part of Zirafe.
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License as
- *  published by the Free Software Foundation, either version 3 of the
- *  License, or (at your option) any later version.
+ *  Zirafe is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
+ *  Zirafe is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU Affero General Public License for more details.
  *
  *  You should have received a copy of the GNU Affero General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with Zirafe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('JYRAPHE_ROOT', dirname(__FILE__) . '/');
+define('ZIRAFE_ROOT', dirname(__FILE__) . '/');
 define('DEBUG', false);
 
-require(JYRAPHE_ROOT . 'lib/config.php');
-require(JYRAPHE_ROOT . 'lib/settings.php');
-require(JYRAPHE_ROOT . 'lib/functions.php');
+require(ZIRAFE_ROOT . 'lib/config.php');
+require(ZIRAFE_ROOT . 'lib/settings.php');
+require(ZIRAFE_ROOT . 'lib/functions.php');
 
 /* check if the destination dirs are writable */
 $writable = is_writable(VAR_FILES) && is_writable(VAR_LINKS) && is_writable(VAR_TRASH);
 
 $res = array();
-if($writable && isset($_POST['jyraphe'])) {
+if($writable && isset($_POST['zirafe'])) {
 
   $key = $_POST['key'];
 
   $time = time();
-  if($_POST['time'] == '42hours') { $time += JYRAPHE_42HOURS; $fr_time = "42 heures"; } else { $time += JYRAPHE_42MINUTES; $fr_time = "42 minutes"; } 
+  if($_POST['time'] == '42hours') { $time += ZIRAFE_42HOURS; $fr_time = "42 heures"; } else { $time += ZIRAFE_42MINUTES; $fr_time = "42 minutes"; } 
 
-  $res = jyraphe_upload($_FILES['file'], isset($_POST['one_time_download']), $key, $time, $cfg);
+  $res = zirafe_upload($_FILES['file'], isset($_POST['one_time_download']), $key, $time, $cfg);
 }
 
-require(JYRAPHE_ROOT . 'lib/template/header.php');
+require(ZIRAFE_ROOT . 'lib/template/header.php');
 
 /* Checking for errors. */
 if(!is_writable(VAR_FILES)) {
@@ -54,7 +54,7 @@ if(!is_writable(VAR_TRASH)) {
 }
 
 /* Check if the install.php script is still in the directory. */
-if (file_exists(JYRAPHE_ROOT . 'install.php')) {
+if (file_exists(ZIRAFE_ROOT . 'install.php')) {
   add_error (_('Installer script still present'),
                        _('Please make sure to delete the installer script "install.php" before continuing.'));
 }
@@ -67,7 +67,7 @@ if(!has_error() && !empty($res)) {
     if($cfg['rewrite']) {
       $link .= $res['link'];
     } else {
-      $link .= 'file.php?h=' . $res['link']; // h because 'h' looks like a jyraphe ;)
+      $link .= 'file.php?h=' . $res['link']; // h because 'h' looks like a zirafe ;)
     }
     $ext = pathinfo($res['final_name'], PATHINFO_EXTENSION);
     echo '<div class="message" id="links">' . NL;
@@ -147,10 +147,10 @@ if(!has_error () && $writable) {
 
 <div id="upload">
 <form enctype="multipart/form-data" action="<?php echo $cfg['web_root']; ?>" method="post">
-<div><input type="hidden" name="jyraphe" value="<?php $_42 = rand(); echo md5($_42); ?>" /></div>
-  <div><span class="title"><?php echo _('Envoyer un '); if($writable && isset($_POST['jyraphe'])) { echo _('autre '); } echo _('fichier'); ?></span></div>
+<div><input type="hidden" name="zirafe" value="<?php $_42 = rand(); echo md5($_42); ?>" /></div>
+  <div><span class="title"><?php echo _('Envoyer un '); if($writable && isset($_POST['zirafe'])) { echo _('autre '); } echo _('fichier'); ?></span></div>
   <p><input size="15" type="file" name="file" /></p>
-  <p class="config"><?php printf(_('Taille maximum : %dMB'), jyraphe_get_max_upload_size()/(1024*1024)); ?></p>
+  <p class="config"><?php printf(_('Taille maximum : %dMB'), zirafe_get_max_upload_size()/(1024*1024)); ?></p>
   <p><input type="submit" value="Envoyer" /></p>
 
   <hr />
@@ -170,5 +170,4 @@ if(!has_error () && $writable) {
 <?php
 }
 
-require(JYRAPHE_ROOT . 'lib/template/footer.php');
-?>
+require(ZIRAFE_ROOT . 'lib/template/footer.php');

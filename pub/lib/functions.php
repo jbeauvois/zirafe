@@ -1,20 +1,20 @@
 <?php
+
 /*
- *  Jyraphe, your web file repository
- *  Copyright (C) 2008  Julien "axolotl" BERNARD <axolotl@magieeternelle.org>
+ *  This file is part of Zirafe.
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Affero General Public License as
- *  published by the Free Software Foundation, either version 3 of the
- *  License, or (at your option) any later version.
+ *  Zirafe is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
+ *  Zirafe is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU Affero General Public License for more details.
  *
  *  You should have received a copy of the GNU Affero General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with Zirafe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
@@ -22,7 +22,7 @@
  * @param $value the value from php.ini
  * @returns an integer for this value
  */
-function jyraphe_ini_to_bytes($value) {
+function zirafe_ini_to_bytes($value) {
   $modifier = substr($value, -1);
   $bytes = substr($value, 0, -1);
   switch(strtoupper($modifier)) {
@@ -46,8 +46,8 @@ function jyraphe_ini_to_bytes($value) {
  * gets the maximum upload size according to php.ini
  * @returns the maximum upload size
  */
-function jyraphe_get_max_upload_size() {
-  return min(jyraphe_ini_to_bytes(ini_get('post_max_size')), jyraphe_ini_to_bytes(ini_get('upload_max_filesize')));
+function zirafe_get_max_upload_size() {
+  return min(zirafe_ini_to_bytes(ini_get('post_max_size')), zirafe_ini_to_bytes(ini_get('upload_max_filesize')));
 }
 
 /**
@@ -56,7 +56,7 @@ function jyraphe_get_max_upload_size() {
  * @param $dir the directory to explore (finishing with a '/')
  * @returns an alternate filename, possibly the initial filename
  */
-function jyraphe_detect_collision($name, $dir) {
+function zirafe_detect_collision($name, $dir) {
   if(!file_exists($dir . $name)) {
     return $name;
   }
@@ -79,7 +79,7 @@ function jyraphe_detect_collision($name, $dir) {
  * @param $code the error code
  * @returns a string explaining the error
  */
-function jyraphe_upload_errstr($code) {
+function zirafe_upload_errstr($code) {
   switch($code) {
   case UPLOAD_ERR_INI_SIZE:
   case UPLOAD_ERR_FORM_SIZE:
@@ -124,7 +124,7 @@ function create_link($link=''){
         return($link);
 }
 
-function jyraphe_upload($file, $one_time_download, $key, $time, $cfg) {
+function zirafe_upload($file, $one_time_download, $key, $time, $cfg) {
   if(!empty($file['tmp_name'])) {
 
     if(is_uploaded_file($file['tmp_name'])) {
@@ -148,7 +148,7 @@ function jyraphe_upload($file, $one_time_download, $key, $time, $cfg) {
       }
 
       /* we check if there is a file with that name */
-      $final_name = jyraphe_detect_collision($final_name, VAR_FILES);
+      $final_name = zirafe_detect_collision($final_name, VAR_FILES);
 
       /* we move it to the right place and create the link */
       if(move_uploaded_file($file['tmp_name'], VAR_FILES . $final_name)) {
@@ -161,7 +161,7 @@ function jyraphe_upload($file, $one_time_download, $key, $time, $cfg) {
     }
   }
 
-  return(array('error' => array('has_error' => true, 'why' => jyraphe_upload_errstr($file['error'])), 'link' => ''));
+  return(array('error' => array('has_error' => true, 'why' => zirafe_upload_errstr($file['error'])), 'link' => ''));
 }
 
 /**
@@ -169,7 +169,7 @@ function jyraphe_upload($file, $one_time_download, $key, $time, $cfg) {
  * @param $mime the mime type
  * @returns a boolean telling if a mime type is viewable
  */
-function jyraphe_is_viewable($mime) {
+function zirafe_is_viewable($mime) {
   if(!empty($mime)) {
     // actually, verify if mime-type is an image or a text
     $viewable1 = array('image', 'text');
