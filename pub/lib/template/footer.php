@@ -1,6 +1,6 @@
 </div>
 <div id="copyright">
-<p>powered by <a href="https://github.com/zirafe/zirafe">zirafe</a></p>
+<p>powered by <a href="http://zirafe.github.com">Zirafe</a></p>
 </div>
 <script type="text/javascript">
  $(document).ready(function(){
