@@ -12,11 +12,14 @@
 * meilleure accessibilité des liens "customs"
 
 ## v1.5 - version "pratique"
+* better checks type mime
 * scripts de netoyage (liens expirés, vieux fichiers)
 * better api
 * formulaire d'upload en glisser/déposer
 * backlog dans un cookie
 * progress bar
+* expires http header
+* link info
 
 ## v2 - version modulable
 * module password
