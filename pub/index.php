@@ -17,12 +17,8 @@
  *  along with Zirafe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('ZIRAFE_ROOT', dirname(__FILE__) . '/');
-define('DEBUG', false);
-
-require(ZIRAFE_ROOT . 'lib/config.php');
-require(ZIRAFE_ROOT . 'lib/settings.php');
-require(ZIRAFE_ROOT . 'lib/functions.php');
+define('IN_ZIRAFE', 1);
+require_once "./inc/init.php";
 
 /* check if the destination dirs are writable */
 $writable = is_writable(VAR_FILES) && is_writable(VAR_LINKS) && is_writable(VAR_TRASH);
@@ -38,7 +34,7 @@ if($writable && isset($_POST['zirafe'])) {
   $res = zirafe_upload($_FILES['file'], isset($_POST['one_time_download']), $key, $time, $cfg);
 }
 
-require(ZIRAFE_ROOT . 'lib/template/header.php');
+require ZIRAFE_ROOT."inc/template/header.php";
 
 /* Checking for errors. */
 if(!is_writable(VAR_FILES)) {
@@ -170,4 +166,4 @@ if(!has_error () && $writable) {
 <?php
 }
 
-require(ZIRAFE_ROOT . 'lib/template/footer.php');
+require ZIRAFE_ROOT."inc/template/footer.php";

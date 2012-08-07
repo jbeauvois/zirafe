@@ -17,12 +17,8 @@
  *  along with Zirafe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('ZIRAFE_ROOT', dirname(__FILE__) . '/');
-define('DEBUG', false);
-
-require(ZIRAFE_ROOT . 'lib/config.php');
-require(ZIRAFE_ROOT . 'lib/settings.php');
-require(ZIRAFE_ROOT . 'lib/functions.php');
+define('IN_ZIRAFE', 1);
+require_once "./inc/init.php";
 
 /* check if the destination dirs are writable */
 $writable = is_writable(VAR_FILES) && is_writable(VAR_LINKS) && is_writable(VAR_TRASH);

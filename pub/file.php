@@ -17,11 +17,8 @@
  *  along with Zirafe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('ZIRAFE_ROOT', dirname(__FILE__) . '/');
-
-require(ZIRAFE_ROOT . 'lib/config.php');
-require(ZIRAFE_ROOT . 'lib/settings.php');
-require(ZIRAFE_ROOT . 'lib/functions.php');	
+define('IN_ZIRAFE', 1);
+require_once "./inc/init.php";
 
 if(!empty($_GET['h'])) {
   $link_name = $_GET['h'];
@@ -41,24 +38,24 @@ if(!empty($_GET['h'])) {
     if($_GET['ext'] != $ext) {
     
     header("HTTP/1.0 404 Not Found");
-    require(ZIRAFE_ROOT . 'lib/template/header.php');
+    require ZIRAFE_ROOT."inc/template/header.php";
         echo '<div class="error"><p>' . _('Malheureusement, le lien sur lequel vous avez cliqué est incorret ou a expiré.') . '</p></div>';
-    require(ZIRAFE_ROOT . 'lib/template/footer.php');
+    require ZIRAFE_ROOT."inc/template/footer.php";
     exit;
     }
 }
     
     
-    if($time != ZIRAFE_INFINITY) {
+    if($time != 0) {
       if(time() > $time) {
         unlink($link_file);
         $new_name = zirafe_detect_collision($file_name, VAR_TRASH);
         rename(VAR_FILES . $file_name, VAR_TRASH . $new_name);
 
 	header("HTTP/1.0 404 Not Found");
-        require(ZIRAFE_ROOT . 'lib/template/header.php');
+        require ZIRAFE_ROOT."inc/template/header.php";
         echo '<div class="error"><p>' . _('Malheureusement, le lien sur lequel vous avez cliqué est incorret ou a expiré.') . '</p></div>';
-        require(ZIRAFE_ROOT . 'lib/template/footer.php');
+        require ZIRAFE_ROOT."inc/template/footer.php";
         exit;
 
       }
@@ -75,16 +72,16 @@ if(!empty($_GET['h'])) {
     if($_GET['f'] != $send_file_name) {
     
     header("HTTP/1.0 404 Not Found");
-    require(ZIRAFE_ROOT . 'lib/template/header.php');
+    require ZIRAFE_ROOT."inc/template/header.php";
         echo '<div class="error"><p>' . _('Malheureusement, le lien sur lequel vous avez cliqué est incorret ou a expiré.') . '</p></div>';
-    require(ZIRAFE_ROOT . 'lib/template/footer.php');
+    require ZIRAFE_ROOT."inc/template/footer.php";
     exit;
     }
     }
     } 
     if(!empty($key)) {
       if(!isset($_POST['key'])) {
-        require(ZIRAFE_ROOT . 'lib/template/header.php');
+        require ZIRAFE_ROOT."inc/template/header.php";
 ?>
 <div id="upload">
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
@@ -101,15 +98,15 @@ if(!empty($_GET['h'])) {
 </form>
 </div>
 <?php
-        require(ZIRAFE_ROOT . 'lib/template/footer.php');
+        require ZIRAFE_ROOT."inc/template/footer.php";
         exit;
       } else {
         if($key != $_POST['key']) {
           header("HTTP/1.0 403 Forbidden");
 
-          require(ZIRAFE_ROOT . 'lib/template/header.php');
+          require ZIRAFE_ROOT."inc/template/header.php";
           echo '<div class="error"><p>Mot de passe invalide.<hr/><a href="">Essayez à nouveau</a></p></div>';
-          require(ZIRAFE_ROOT . 'lib/template/footer.php');
+          require ZIRAFE_ROOT."inc/template/footer.php";
           exit;
         }
       }
@@ -137,16 +134,16 @@ if(!empty($_GET['h'])) {
   } else {
     header("HTTP/1.0 404 Not Found");
 
-    require(ZIRAFE_ROOT . 'lib/template/header.php');
+    require ZIRAFE_ROOT."inc/template/header.php";
     echo '<div class="error"><p>' . _('Malheureusement, le lien sur lequel vous avez cliqué est incorrect ou a expiré.') . '</p></div>';
-    require(ZIRAFE_ROOT . 'lib/template/footer.php');
+    require ZIRAFE_ROOT."inc/template/footer.php";
     exit;
   }
 } else {
     header("HTTP/1.0 404 Not Found");
 
-    require(ZIRAFE_ROOT . 'lib/template/header.php');
+    require ZIRAFE_ROOT."inc/template/header.php";
     echo '<div class="error"><p>' . _('La page n\'existe pas !') . '</p></div>';
-    require(ZIRAFE_ROOT . 'lib/template/footer.php');
+    require ZIRAFE_ROOT."inc/template/footer.php";
     exit;
 }
