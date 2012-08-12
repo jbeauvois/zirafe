@@ -170,12 +170,7 @@ h2 {
 }
 
 #copyright {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
   font-size: 0.7em;
-  border-top: 1px solid #CCC;
-  background-color: #EEE;
   color: #848484;
 }
 
