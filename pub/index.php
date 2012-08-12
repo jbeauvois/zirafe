@@ -50,7 +50,7 @@ if(!is_writable(VAR_TRASH)) {
 }
 
 /* Check if the install.php script is still in the directory. */
-if (file_exists(ZIRAFE_ROOT . 'install.php')) {
+if (!file_exists(ZIRAFE_ROOT."inc/config.php")) {
   add_error (_('Installer script still present'),
                        _('Please make sure to delete the installer script "install.php" before continuing.'));
 }

@@ -17,23 +17,17 @@
  *  along with Zirafe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if(!defined("IN_ZIRAFE"))
-{
-	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_ZIRAFE is defined.");
-}
-
 if(!defined('ZIRAFE_ROOT'))
 {
-	define('ZIRAFE_ROOT', dirname(dirname(__FILE__))."/");
+	define('ZIRAFE_ROOT', dirname(__FILE__)."/");
 }
 
 require_once ZIRAFE_ROOT."inc/functions.php";
 
-if(!file_exists(ZIRAFE_ROOT."inc/config.php"))
+if(file_exists(ZIRAFE_ROOT."inc/config.php"))
 {
-	header("Location: install.php");
-	exit;
+	// TODO: check config + are_writable
+	die('Zirafe sounds already installed. Remove inc/config.php if you want to run again this installer.');
 }
 
-require_once ZIRAFE_ROOT."inc/config.php";
-require_once ZIRAFE_ROOT."inc/settings.php";
+echo "fill inc/config.default.php and rename it into inc/config.php";
