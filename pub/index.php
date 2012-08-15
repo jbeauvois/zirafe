@@ -21,7 +21,7 @@ define('IN_ZIRAFE', 1);
 require_once "./inc/init.php";
 
 /* check if the destination dirs are writable */
-$writable = is_writable(VAR_FILES) && is_writable(VAR_LINKS) && is_writable(VAR_TRASH);
+$writable = is_writable(VAR_FILES) && is_writable(VAR_LINKS) && is_writable(VAR_TRASH); //TODO: create a function for that and more
 
 $res = array();
 if($writable && isset($_POST['zirafe'])) {
@@ -29,7 +29,7 @@ if($writable && isset($_POST['zirafe'])) {
   $key = $_POST['key'];
 
   $time = time();
-  if($_POST['time'] == '42hours') { $time += ZIRAFE_42HOURS; $fr_time = "42 heures"; } else { $time += ZIRAFE_42MINUTES; $fr_time = "42 minutes"; } 
+  if($_POST['time'] == '42hours') { $time += ZIRAFE_42HOURS; $fr_time = "42 heures"; } else { $time += ZIRAFE_42MINUTES; $fr_time = "42 minutes"; } //TODO: create a setting $cfg['expiry_times']
 
   $res = zirafe_upload($_FILES['file'], isset($_POST['one_time_download']), $key, $time, $cfg);
 }
@@ -60,7 +60,7 @@ if(!has_error() && !empty($res)) {
       add_error (_('Une erreur est survenue.'), $res['error']['why']);
   } else {
     $link = $cfg['web_root'];
-    if($cfg['rewrite']) {
+    if($cfg['rewrite']) { // TODO: please.. always use url rewriting
       $link .= $res['link'];
     } else {
       $link .= 'file.php?h=' . $res['link']; // h because 'h' looks like a zirafe ;)

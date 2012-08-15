@@ -115,7 +115,7 @@ function zirafe_upload_errstr($code) {
  *   'link' => the link name of the uploaded file
  */
 function create_link($link=''){
-        $length = 8;
+	$length = 8;
         $seed = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
         for($x=1;$x<=$length;$x++){
