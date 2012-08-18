@@ -17,7 +17,7 @@ header('Content-Type: ' . $content_type);
 <head>
 	<title><?php echo _('La réponse ultime'); ?></title>
 	<meta http-equiv="Content-Type" content="<?php echo $content_type; ?>" />
-	<link href="<?php echo $cfg['web_root'] . 'style.css'; ?>" rel="stylesheet" type="text/css" />
+	<link href="<?php echo $cfg['web_root'] . '/media/style.css'; ?>" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="media/jquery.js"></script>
 </head>
 <body>

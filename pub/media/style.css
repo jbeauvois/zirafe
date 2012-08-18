@@ -204,7 +204,7 @@ h2 {
 }
 
 .error p:before {
-	content: url('media/error.png');
+	content: url('error.png');
 	padding-right: 1ex;
 }
 
@@ -220,5 +220,5 @@ h2 {
 }
 
 .message p.ok:before {
-	content: url('media/ok.png');
+	content: url('ok.png');
 }
