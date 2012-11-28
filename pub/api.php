@@ -28,8 +28,13 @@ if($writable)
 {
 	$key = '';
 	$time = time();
-	$time += ZIRAFE_42HOURS;
-	$fr_time = "42 heures";
+	
+	foreach($cfg['retention'] as $retName => $retTime) {
+		if ($cfg['default_retention'] == $retName) {
+			$time += $retTime;
+			break;
+		}
+	}
 
 	$res = zirafe_upload($_FILES['file'], isset($_POST['one_time_download']), $key, $time, $cfg);
 }
