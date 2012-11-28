@@ -244,3 +244,34 @@ function show_errors ()
 		echo '</div>';
 	}
 }
+
+/**
+* Display human readable text from seconds.
+*/
+function secondsToHuman($seconds)
+{
+	$units = array(
+		"semaine"	=> 7*24*3600,
+		"jour"		=>   24*3600,
+		"heure"		=>      3600,
+		"minute"	=>        60,
+		"seconde"	=>         1,
+        );
+
+	// 0 seconds is 0 seconds AHAH :D
+	if ( $seconds == 0 ) { 
+		return "0 seconds";
+	}
+
+	$string = "";
+
+	foreach ($units as $name => $divisor) {
+		if ($quot = intval($seconds / $divisor)) {
+			$string .= "$quot $name";
+                        $string .= (abs($quot) > 1 ? "s" : "") . ", ";
+                        $seconds -= $quot * $divisor;
+                }
+        }
+
+        return substr($string, 0, -2);
+}
