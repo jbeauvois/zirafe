@@ -3,6 +3,7 @@ server
 	listen 80;
 	server_name zirafe;
 	root /var/www/zirafe;
+	index index.php;
 	access_log /var/log/nginx/zirafe.access.log;
 	error_log /var/log/nginx/zirafe.error.log;
 
@@ -15,6 +16,7 @@ server
 	rewrite "/([0-9a-zA-Z]{8,9})\.(.+)/v$" /file.php?h=$1&ext=$2&view=1;
 	rewrite "/([0-9a-zA-Z]{8,9})\.(.+)/dl$" /file.php?h=$1&ext=$2&force=1;
 	rewrite "/([0-9a-zA-Z]{8,9})\.(.+)" /file.php?h=$1&ext=$2;
+	rewrite ^/style.css$ /media/style.css;
 
 	location ~ ^(.+\.php)(.*)$
 	{

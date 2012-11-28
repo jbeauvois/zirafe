@@ -1,1 +1,2 @@
 pub/inc/config.php
+.*.sw[a-z]

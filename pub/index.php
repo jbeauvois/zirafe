@@ -29,16 +29,18 @@ if($writable && isset($_POST['zirafe']))
 	$key = $_POST['key'];
 	$time = time();
 
-	if($_POST['time'] == '42hours') //TODO: create a setting $cfg['expiry_times']
-
+	if($_POST['time']) 
 	{
-		$time += ZIRAFE_42HOURS;
-		$fr_time = "42 heures";
-	}
-	else
-	{
-		$time += ZIRAFE_42MINUTES;
-		$fr_time = "42 minutes";
+		foreach ($cfg['retention'] as $retName => $retTime) {
+			if ($retTime == $_POST['time']) {
+				$time += $retTime;
+				$keepTimeRetention = $retName;
+				break;
+			} else {
+				$time += $cfg['default_retention'];
+				$keepTimeRetention = $cfg['default_retention'];
+			}
+		}
 	}
 	$res = zirafe_upload($_FILES['file'], isset($_POST['one_time_download']), $key, $time, $cfg);
 }
@@ -89,8 +91,7 @@ if(!has_error() && !empty($res))
 
 		$ext = pathinfo($res['final_name'], PATHINFO_EXTENSION);
 		echo '<div class="message" id="links">' . NL;
-		echo '<p class="ok">' . _('Fichier envoyé ! Il est maintenant disponible pour ') .$fr_time. _(' à ces adresses :'). '</p>' . NL;
-
+		echo '<p class="ok">' . _('Fichier envoyé ! Il est maintenant disponible pour ') .$keepTimeRetention. _(' à ces adresses :'). '</p>' . NL;
 		echo '<table>'. NL;		
 		echo '	<tr>'. NL;
 		echo '		<td class="label"><strong><a href="' . $link . '/' . rawurlencode($res['file']) . '">Lien</a> long direct</strong></td>'. NL;
@@ -189,8 +190,15 @@ if(!has_error () && $writable)
 	<hr />
 	<p><label for="select_time"><?php echo _('Limite de disponibilité'); ?></label>
 			<select name="time" id="select_time">
-				<option value="42minutes"><?php echo _('42 minutes'); ?></option>
-				<option value="42hours" selected="selected"><?php echo _('42 heures'); ?></option>
+				<?php
+					foreach ($cfg['retention'] as $retName=>$retTime) {
+						if ($cfg['default_retention'] == $retName) {
+							echo '<option value="'.$retTime.'" selected="selected">'.$retName.'</option>';
+						} else {
+							echo '<option value="'.$retTime.'">'.$retName.'</option>';
+						}
+					}
+				?>
 			</select>
 	</p>			
 	<div id="moreoptions">

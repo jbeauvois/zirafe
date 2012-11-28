@@ -28,8 +28,8 @@ if($writable)
 {
 	$key = '';
 	$time = time();
-	$time += ZIRAFE_42MINUTES;
-	$fr_time = "42 minutes";
+	$time += ZIRAFE_42HOURS;
+	$fr_time = "42 heures";
 
 	$res = zirafe_upload($_FILES['file'], isset($_POST['one_time_download']), $key, $time, $cfg);
 }
@@ -48,13 +48,6 @@ if(!is_writable(VAR_LINKS))
 if(!is_writable(VAR_TRASH))
 {
 	add_error (_('The trash directory is not writable!'), VAR_TRASH);
-}
-
-/* Check if the install.php script is still in the directory. */
-if (file_exists(ZIRAFE_ROOT . 'install.php'))
-{
-	add_error (_('Installer script still present'),
-	_('Please make sure to delete the installer script "install.php" before continuing.'));
 }
 
 if(!has_error() && !empty($res))
