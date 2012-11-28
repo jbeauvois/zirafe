@@ -34,11 +34,11 @@ if($writable && isset($_POST['zirafe']))
 		foreach ($cfg['retention'] as $retName => $retTime) {
 			if ($retTime == $_POST['time']) {
 				$time += $retTime;
-				$keepTimeRetention = $retName;
+				$keepTimeRetention = secondsToHuman($retName);
 				break;
 			} else {
 				$time += $cfg['default_retention'];
-				$keepTimeRetention = $cfg['default_retention'];
+				$keepTimeRetention = secondsToHuman($cfg['default_retention']);
 			}
 		}
 	}
