@@ -34,7 +34,7 @@ if($writable && isset($_POST['zirafe']))
 		foreach ($cfg['retention'] as $retName => $retTime) {
 			if ($retTime == $_POST['time']) {
 				$time += $retTime;
-				$keepTimeRetention = $retTime;
+				$keepTimeRetention = $retName;
 				break;
 			} else {
 				$time += $cfg['default_retention'];
@@ -91,7 +91,7 @@ if(!has_error() && !empty($res))
 
 		$ext = pathinfo($res['final_name'], PATHINFO_EXTENSION);
 		echo '<div class="message" id="links">' . NL;
-		echo '<p class="ok">' . _('Fichier envoyé ! Il est maintenant disponible pour ') .$keepTimeRetention. _('à ces adresses :'). '</p>' . NL;
+		echo '<p class="ok">' . _('Fichier envoyé ! Il est maintenant disponible pour ') .$keepTimeRetention. _(' à ces adresses :'). '</p>' . NL;
 		echo '<table>'. NL;		
 		echo '	<tr>'. NL;
 		echo '		<td class="label"><strong><a href="' . $link . '/' . rawurlencode($res['file']) . '">Lien</a> long direct</strong></td>'. NL;
