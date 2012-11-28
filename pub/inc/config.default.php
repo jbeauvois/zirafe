@@ -18,8 +18,8 @@
  */
 
 // don't forget the ending '/'
-$cfg['web_root'] = 'http://xat.now.im:8080/';
-$cfg['var_root'] = '/var/zirafe/'; // mkdir -p /var/zirafe/files /var/zirafe/links /var/zirafe/trash
+$cfg['web_root'] = 'http://localhost/';
+$cfg['var_root'] = '/var/zirafe/'; // mkdir -p /var/zirafe/{files,links,trash} && chown -R www-data /var/zirafe/
 $cfg['lang'] = 'fr_FR.UTF-8';
 $cfg['style'] = 'default';
 $cfg['rewrite'] = true;
