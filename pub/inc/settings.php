@@ -35,6 +35,3 @@ if(!defined('NL'))
 {
 	define('NL', "\n");
 }
-
-define('ZIRAFE_42MINUTES', 2520);
-define('ZIRAFE_42HOURS', 151200); // ZIRAFE_MINUTE * 60 * 24
