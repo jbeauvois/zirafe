@@ -79,15 +79,7 @@ if(!has_error() && !empty($res))
 	else
 	{
 		$link = $cfg['web_root'];
-
-		if($cfg['rewrite'])// TODO: please.. always use url rewriting
-		{
-			$link .= $res['link'];
-		}
-		else
-		{
-			$link .= 'file.php?h=' . $res['link']; // h because 'h' looks like a zirafe ;)
-		}
+		$link .= $res['link'];
 
 		$ext = pathinfo($res['final_name'], PATHINFO_EXTENSION);
 		echo '<div class="message" id="links">' . NL;

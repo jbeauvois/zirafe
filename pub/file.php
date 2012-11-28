@@ -22,7 +22,7 @@ require_once "./inc/init.php";
 
 if(!empty($_GET['h']))
 {
-	$link_name = $_GET['h'];
+	$link_name = $_GET['h']; // h because 'h' looks like a zirafe
 
 	$link_file = VAR_LINKS . $link_name;
 	if(file_exists($link_file))
