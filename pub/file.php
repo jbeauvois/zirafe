@@ -33,7 +33,7 @@ if(!empty($_GET['h']))
 		$mime_type = trim($content[2]);
 		$file_size = trim($content[3]);
 		$key = trim($content[4], NL);
-		$time = trim($content[5]);
+		$best_before = trim($content[5]);
 		$ext = pathinfo(VAR_FILES . $file_name, PATHINFO_EXTENSION);
 				
 		if(!empty($_GET['ext']))
@@ -48,9 +48,9 @@ if(!empty($_GET['h']))
 			}
 		}
 		
-		if($time != 0)
+		if($best_before != 0)
 		{
-			if(time() > $time)
+			if(time() > $best_before)
 			{
 				unlink($link_file);
 				$new_name = zirafe_detect_collision($file_name, VAR_TRASH);

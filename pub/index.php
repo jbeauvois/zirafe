@@ -27,22 +27,24 @@ $res = array();
 if($writable && isset($_POST['zirafe']))
 {
 	$key = $_POST['key'];
-	$time = time();
 
-	if($_POST['time']) 
+	if(isset($_POST['expiration']))
 	{
-		foreach ($cfg['retention'] as $retName => $retTime) {
-			if ($retTime == $_POST['time']) {
-				$time += $retTime;
-				$keepTimeRetention = secondsToHuman($retTime);
-				break;
-			} else {
-				$time += $cfg['default_retention'];
-				$keepTimeRetention = secondsToHuman($cfg['default_retention']);
-			}
+		$expiration = $_POST['expiration'];
+		if(isset($cfg['expiration_time'][$expiration]))
+		{
+			$best_before = time() + $cfg['expiration_time'][$expiration];
+			$human_expiration_time = $expiration;
 		}
 	}
-	$res = zirafe_upload($_FILES['file'], isset($_POST['one_time_download']), $key, $time, $cfg);
+
+	if(!isset($best_before))
+	{
+		$best_before = time() + date_to_seconds($cfg['default_expiration_time_config']);
+		$human_expiration_time = $cfg['default_expiration'];
+	}
+
+	$res = zirafe_upload($_FILES['file'], isset($_POST['one_time_download']), $key, $best_before, $cfg);
 }
 
 require ZIRAFE_ROOT."inc/template/header.php";
@@ -83,7 +85,7 @@ if(!has_error() && !empty($res))
 
 		$ext = pathinfo($res['final_name'], PATHINFO_EXTENSION);
 		echo '<div class="message" id="links">' . NL;
-		echo '<p class="ok">' . _('Fichier envoyé ! Il est maintenant disponible pour ') .$keepTimeRetention. _(' à ces adresses :'). '</p>' . NL;
+		echo '<p class="ok">' . _('Fichier envoyé ! Il est maintenant disponible pour ') .$human_expiration_time. _(' à ces adresses :'). '</p>' . NL;
 		echo '<table>'. NL;		
 		echo '	<tr>'. NL;
 		echo '		<td class="label"><strong><a href="' . $link . '/' . rawurlencode($res['file']) . '">Lien</a> long direct</strong></td>'. NL;
@@ -141,7 +143,7 @@ if(!has_error() && !empty($res))
 		
 		echo '</table>'. NL;
 		echo '<p class="options"><span>'. _("Plus d'options").'</span></p>'. NL;
-		echo '<p class="validity">' . _('Le lien restera valide jusqu\'à cette date :') . '<br /><strong>' . strftime("%c", $time) . '</strong>';
+		echo '<p class="best_before">' . _('Le lien restera valide jusqu\'à cette date :') . '<br /><strong>' . strftime("%c", $best_before) . '</strong>';
 
 			if($_POST['one_time_download'] || !empty($_POST['key']))
 			{
@@ -180,14 +182,18 @@ if(!has_error () && $writable)
 	<p><input type="submit" value="Envoyer" /></p>
 
 	<hr />
-	<p><label for="select_time"><?php echo _('Limite de disponibilité'); ?></label>
-			<select name="time" id="select_time">
+	<p><label for="expiration"><?php echo _('Limite de disponibilité'); ?></label>
+			<select name="expiration" id="select_time">
 				<?php
-					foreach ($cfg['retention'] as $retName=>$retTime) {
-						if ($cfg['default_retention'] == $retName) {
-							echo '<option value="'.$retTime.'" selected="selected">'.$retName.'</option>';
-						} else {
-							echo '<option value="'.$retTime.'">'.$retName.'</option>';
+					foreach ($cfg['expiration_time'] as $expiration => $expiration_time)
+					{
+						if ($cfg['default_expiration'] == $expiration)
+						{
+							echo '<option value="'.$expiration.'" selected="selected">'.$expiration.'</option>';
+						}
+						else
+						{
+							echo '<option value="'.$expiration.'">'.$expiration.'</option>';
 						}
 					}
 				?>

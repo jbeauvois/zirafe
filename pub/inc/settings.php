@@ -25,13 +25,16 @@ define('VAR_FILES', $cfg['var_root'] . 'files/');
 define('VAR_LINKS', $cfg['var_root'] . 'links/');
 define('VAR_TRASH', $cfg['var_root'] . 'trash/');
 
-// i18n
-
-setlocale(LC_ALL, $cfg['lang']);
-
-
 // useful constants
 if(!defined('NL'))
 {
 	define('NL', "\n");
 }
+
+$cfg['expiration_time'] = array();
+foreach ($cfg['expiration_time_config'] as $e)
+{
+	$cfg['expiration_time'][date_to_human($e)] = date_to_seconds($e);
+}
+
+$cfg['default_expiration'] = date_to_human($cfg['default_expiration_time_config']);

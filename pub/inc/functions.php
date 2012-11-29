@@ -137,7 +137,7 @@ function create_link($link='')
 	return($link);
 }
 
-function zirafe_upload($file, $one_time_download, $key, $time, $cfg)
+function zirafe_upload($file, $one_time_download, $key, $best_before, $cfg)
 {
 	if(!empty($file['tmp_name']))
 	{
@@ -172,7 +172,7 @@ function zirafe_upload($file, $one_time_download, $key, $time, $cfg)
 			if(move_uploaded_file($file['tmp_name'], VAR_FILES . $final_name))
 			{
 				$handle = fopen(VAR_LINKS . $link_name, 'w');
-				fwrite($handle, $final_name . NL . $send_file_name . NL . $mime_type . NL . $file['size'] . NL . $key . NL . $time . NL);
+				fwrite($handle, $final_name . NL . $send_file_name . NL . $mime_type . NL . $file['size'] . NL . $key . NL . $best_before . NL);
 				fclose($handle);
 
 				return(array('error' => $noerr, 'link' => $link_name, 'file' => $send_file_name, 'final_name' => VAR_FILES.$final_name));
@@ -245,33 +245,67 @@ function show_errors ()
 	}
 }
 
-/**
-* Display human readable text from seconds.
-*/
-function secondsToHuman($seconds)
+/*
+ * Convert date (1y 1m 1w 1d 1h 1i 1s) to seconds
+ */
+function date_to_seconds($date)
 {
-	$units = array(
-		"semaine"	=> 7*24*3600,
-		"jour"		=>   24*3600,
-		"heure"		=>      3600,
-		"minute"	=>        60,
-		"seconde"	=>         1,
-        );
+	$letters = array(
+		'y'	=> 3600*24*365,	// year (365 days)
+		'm'	=> 3600*24*31,	// month (31 days)
+		'w'	=> 3600*24*7,	// week
+		'd'	=> 3600*24,	// day
+		'h'	=> 3600,	// hour
+		'i'	=> 60,		// minute
+		's'	=> 1,		// second
+	);
 
-	// 0 seconds is 0 seconds AHAH :D
-	if ( $seconds == 0 ) { 
-		return "0 seconds";
+	$seconds=0;
+	foreach (explode(' ', $date) as $v)
+	{
+		preg_match('/^(\d+)(\w+)/',$v,$matches);
+		$seconds += $matches[1]*$letters[$matches[2]];
 	}
+	return($seconds);
+}
 
-	$string = "";
 
-	foreach ($units as $name => $divisor) {
-		if ($quot = intval($seconds / $divisor)) {
-			$string .= "$quot $name";
-                        $string .= (abs($quot) > 1 ? "s" : "") . ", ";
-                        $seconds -= $quot * $divisor;
-                }
-        }
+/*
+ * Convert date (1y 1m 1w 1d 1h 1i 1s) to human readable
+ */
+function date_to_human($date)
+{
+	$lang['second']	= 'seconde';
+	$lang['seconds'] = 'secondes';
+	$lang['minute']	= 'minute';
+	$lang['minutes'] = 'minutes';
+	$lang['hour'] = 'heure';
+	$lang['hours'] = 'heures';
+	$lang['day'] = 'jour';
+	$lang['days'] = 'jours';
+	$lang['week'] = 'semaine';
+	$lang['weeks'] = 'semaines';
+	$lang['month'] = 'mois';
+	$lang['months'] = 'mois';
+	$lang['year'] = 'an';
+	$lang['years'] = 'ans';
 
-        return substr($string, 0, -2);
+	$human='';
+	$letters = array('Y', 'M', 'W', 'D', 'H', 'I', 'S'); // hack, cf strtoupper some lines below
+	$singular = array($lang['year'], $lang['month'], $lang['week'], $lang['day'], $lang['hour'], $lang['minute'], $lang['second']);
+	$plural = array($lang['years'], $lang['months'], $lang['weeks'], $lang['days'], $lang['hours'], $lang['minutes'], $lang['seconds']);
+	foreach (explode(' ', strtoupper($date)) as $v)
+	{
+		preg_match('/^(\d+)(\w+)/',$v,$matches);
+		if($matches[1] < 2)
+		{
+			$human .= $matches[1].' '.str_replace($letters, $singular, $matches[2]).' ';
+		}
+		else
+		{
+			$human .= $matches[1].' '.str_replace($letters, $plural, $matches[2]).' ';
+
+		}
+	}
+	return(trim($human));
 }
