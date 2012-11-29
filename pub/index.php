@@ -145,12 +145,12 @@ if(!has_error() && !empty($res))
 		echo '<p class="options"><span>'. _("Plus d'options").'</span></p>'. NL;
 		echo '<p class="best_before">' . _('Le lien restera valide jusqu\'à cette date :') . '<br /><strong>' . strftime("%c", $best_before) . '</strong>';
 
-			if($_POST['one_time_download'] || !empty($_POST['key']))
+			if(!empty($_POST['one_time_download']) || !empty($_POST['key']))
 			{
 				echo '<br /><br /><span style="color: red; font-weight: bold;">N\'oubliez pas que :</span>';
 			}
 
-			if($_POST['one_time_download'])
+			if(!empty($_POST['one_time_download']))
 			{
 				echo ' Le lien est à usage unique.';
 			}
