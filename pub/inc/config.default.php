@@ -20,9 +20,5 @@
 // don't forget the ending '/'
 $cfg['web_root'] = 'http://localhost/';
 $cfg['var_root'] = '/var/zirafe/'; // mkdir -p /var/zirafe/{files,links,trash} && chown -R www-data /var/zirafe/
-$cfg['retention'] = array(
-	'42 minutes' => 2520,
-	'42 heures' => 151200,
-	'42 jours' => 3628800,
-);
-$cfg['default_retention'] = '42 heures';
+$cfg['expiration_time_config'] = array('42i', '42h', '42d');
+$cfg['default_expiration_time_config'] = '42h';
