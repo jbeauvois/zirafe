@@ -33,10 +33,10 @@ require_once ZIRAFE_ROOT."inc/functions.php";
 
 // # availables times for retention file
 $retention = array(
-	'42i' => 2520, 
-        '42h' => 151200, 
-        '42d' => 3628800,
-        '42w' => 25401600,
+	'42i', 
+        '42h', 
+        '42d',
+        '42w',
 );
 
 /*
@@ -126,7 +126,7 @@ function isValidPort($port) {
 // # isValidRetention() checks if retention selected is part of $retention array
 function isValidRetention($time) {
 	global $retention;
-	foreach ($retention as $retName => $retTime) {
+	foreach ($retention as $retName) {
 		if ($retName != $time) {
 			continue;
 		} else {
@@ -166,7 +166,7 @@ function printStep1() {
 		echo '<label for="ssl">SSL : </label><input type="checkbox" id="ssl" name="ssl" /><br />';
 		echo '<label for="directory">Working directory : </label><input type="text" id="directory" name="directory" value="/var/zirafe/" /><br />';
 		echo '<label>Default file retention : </label><select id="default_ret" name="default_ret">';
-			foreach ($retention as $expiration => $expiration_time)
+			foreach ($retention as $expiration)
 			{
 				if ($expiration == '42d') {
 					echo '<option value="'.$expiration.'" selected="selected">'.date_to_human($expiration).'</option>';
@@ -284,7 +284,7 @@ function writeConfigFile() {
 	fwrite($fh, "\$cfg['web_root'] = '".$webroot."';\n");
 	fwrite($fh, "\$cfg['var_root'] = '".$directory."';\n");
 	fwrite($fh, "\$cfg['expiration_time_config'] = array(\n");
-	foreach($retention as $retName => $retTime) {
+	foreach($retention as $retName) {
 		fwrite($fh, "\t'".$retName."',\n");
 	}
 	fwrite($fh, ");\n");
