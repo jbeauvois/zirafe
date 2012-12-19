@@ -17,38 +17,6 @@
  * along with Zirafe. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
-############################################
-#### 	Only for dev needs (tmp for dev)
-############################################
-*/
-#$winPath = "C:\\Users\\";
-#$unixPath = "/var/zirafe/";
-#$webboot = "/";
-#echo "### DEBUG PART<br />";
-#echo "# path<br />";
-#echo "IF unixPath =" .setUnixPath($_POST['directory']);
-#echo "Valid =" .isValidUnixPath(setUnixPath($_POST['directory']));
-#echo "<br />";
-#echo "IF WinPath =" .setWindowsPath($_POST['directory']);
-#echo "Valid =" .isValidWinPath(setWindowsPath($_POST['directory']));
-#echo "<br />";
-#echo "# webroot<br />";
-#echo "Webroot =" .setUnixPath($_POST['webroot']);
-#echo "Valid =" .isValidUnixPath(setUnixPath($_POST['webroot']));
-#echo "<br />";
-
-function checkStep2() {
-	return 0;
-}
-function checkStep3() {
-	return 0;
-}
-/*
-############################################
-#### 	End developper help (tmp)
-############################################
-*/
 
 /*
 ############################################
@@ -214,7 +182,7 @@ function printStep1() {
 // # printStep2() prints summary of configuration
 // # TODO: print retention into human readable text and write config.php
 function printStep2() {
-	echo '<h1>Installer : Summary</h1>';
+	echo '<h1>Installer : Configuration summary</h1>';
 
 	// echo 'IP or DNS : '.$_POST['ip-dns'].'<br />';
 	// echo 'Port : '.setPort($_POST['port']).'<br />';
@@ -354,10 +322,6 @@ else {
 			echo "Zirafe is now installed and configured. Go home page";
 		}
 	}
-	// STEP 3 : Check php.ini (upload values)
-	elseif ($_POST['install'] == 'step2' && checkStep2()) {
-		echo "step3";
-	}
 	// Error detected in the last install step
 	else {
 		switch ($_POST['install']) {
@@ -368,14 +332,6 @@ else {
 			case 'step1':
 				echo 'Error in step 1';
 				printStep1();
-				break;
-			case 'step2';
-				echo 'Error in step 2';
-				printStep2();
-				break;
-			case 'step3';
-				echo 'Error in step 3';
-				printStep3();
 				break;
 		}
 	}
