@@ -322,6 +322,8 @@ function writeConfigFile() {
 	fwrite($fh, ");\n");
 	fwrite($fh, "\$cfg['default_expiration_time_config'] = '".$default_ret."';\n");
 	fclose($fh);
+
+	return 1;
 }
 
 /*
@@ -348,7 +350,9 @@ else {
 	// STEP 2 : zirafe directories
 	elseif ($_POST['install'] == 'step1' && checkStep1()) {
 		printStep2();
-		writeConfigFile();
+		if (writeConfigFile()) {
+			echo "Zirafe is now installed and configured. Go home page";
+		}
 	}
 	// STEP 3 : Check php.ini (upload values)
 	elseif ($_POST['install'] == 'step2' && checkStep2()) {
