@@ -1,4 +1,4 @@
-*tous ces points ne sont que des idées d'évolutions, mais ne constituent aucunement un engagement de la part de l'équipe de Zirafe.*
+*tous ces points sont des idées d'évolutions du projet mais ne constituent aucunement un engagement de la part de l'équipe de Zirafe.*
 
 ## v0.5 - version "fresh fork"
 * refactoring (remove jquery, merge nginx configs)
